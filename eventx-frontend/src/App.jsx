@@ -7,7 +7,7 @@ import EventInfo from "./components/manageEvents/eventInfo";
 import AllAttendees from "./components/Ateendes/AllAteendie";
 import Report from "./components/Ateendes/report";
 import Booking from "./components/booking/booking";
-
+import CreateEvent from "./components/manageEvents/createevent";
 // Auth imports
 import { AuthProvider } from "./components/Auth/AuthContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
@@ -28,7 +28,7 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute >
                   <ResponsiveDrawer />
                 </ProtectedRoute>
               }
@@ -39,6 +39,7 @@ function App() {
               <Route path="insights" element={<AllAttendees />} />
               <Route path="analytics" element={<Report />} />
               <Route path="tickets" element={<Booking />} />
+              <Route path="create-event" element={<CreateEvent />} />
               {/* add more routes here */}
             </Route>
     
