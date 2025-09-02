@@ -35,7 +35,7 @@ function App() {
             >
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="manage-events" element={<ManageEvents />} />
-              <Route path="event-info" element={<EventInfo />} />
+              <Route path="event-info/:eventId" element={<EventInfo />} />
               <Route path="insights" element={<AllAttendees />} />
               <Route path="analytics" element={<Report />} />
               <Route path="tickets" element={<Booking />} />
