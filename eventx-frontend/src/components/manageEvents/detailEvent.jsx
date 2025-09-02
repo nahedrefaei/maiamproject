@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Ticket, ShoppingCart, Banknote, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const EventCard = ({ event, onDelete }) => {
+const EventCard = ({ event, onDelete, onUpdate }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -56,7 +56,7 @@ const EventCard = ({ event, onDelete }) => {
           {open && (
             <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
               <button
-                onClick={() => alert("Update clicked")}
+                onClick={() => onUpdate(event._id)}
                 className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 rounded-t-lg"
               >
                 Update

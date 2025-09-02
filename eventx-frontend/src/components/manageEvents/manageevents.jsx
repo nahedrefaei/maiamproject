@@ -8,10 +8,12 @@ import CircleIcon from "@mui/icons-material/Circle";
 import EventCard from "./detailEvent";
 import ResponsiveDrawer from "../DashboardScreen/maindashboard";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // 1. Import deleteEventService
 import { listEventsService, deleteEventService } from "../services/authService";
 
 export default function ManageEvents() {
+  const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [pendingEvents, setPendingEvents] = useState([]);
   const [closedEvents, setClosedEvents] = useState([]);
@@ -50,7 +52,7 @@ export default function ManageEvents() {
     if (!window.confirm("Are you sure you want to delete this event? This action cannot be undone.")) {
       return;
     }
-
+   
     try {
       await deleteEventService(eventId);
       // After successful deletion, refetch all events to update the UI
@@ -60,6 +62,10 @@ export default function ManageEvents() {
       alert("Failed to delete the event. Please try again.");
     }
   };
+  const handleUpdate = (eventId) => {
+    navigate(`/event-info/${eventId}`)
+    
+   };
 
   return (
     <ResponsiveDrawer>
@@ -80,7 +86,7 @@ export default function ManageEvents() {
             <div>
               {upcomingEvents.map((event) => (
                 // 3. Pass the onDelete handler to each EventCard
-                <EventCard key={event._id} event={event} onDelete={handleDelete} />
+                <EventCard key={event._id} event={event} onDelete={handleDelete} onUpdate={handleUpdate} />
               ))}
             </div>
           </div>
@@ -94,7 +100,7 @@ export default function ManageEvents() {
             <div>
               {pendingEvents.map((event) => (
                 // 3. Pass the onDelete handler to each EventCard
-                <EventCard key={event._id} event={event} onDelete={handleDelete} />
+                <EventCard key={event._id} event={event} onDelete={handleDelete} onUpdate={handleUpdate}/>
               ))}
             </div>
           </div>
@@ -108,7 +114,7 @@ export default function ManageEvents() {
             <div>
               {closedEvents.map((event) => (
                 // 3. Pass the onDelete handler to each EventCard
-                <EventCard key={event._id} event={event} onDelete={handleDelete} />
+                <EventCard key={event._id} event={event} onDelete={handleDelete} onUpdate={handleUpdate}/>
               ))}
             </div>
           </div>

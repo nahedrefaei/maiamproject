@@ -25,7 +25,7 @@ export const publishEventService = (id) => api.post(`/events/${id}/publish`);
 export const updateEventService = (id, payload) => api.put(`/events/${id}`, payload);
 export const deleteEventService = (id) => api.delete(`/events/${id}`);
 export const listEventsService = (params) => api.get("/events", { params });
-
+export const getEventService = (id) => api.get(`/events/${id}`);
 // Book ticket
 export const bookTicketService = (payload) => api.post("/tickets/book", payload);
 
