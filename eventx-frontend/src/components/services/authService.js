@@ -26,5 +26,16 @@ export const updateEventService = (id, payload) => api.put(`/events/${id}`, payl
 export const deleteEventService = (id) => api.delete(`/events/${id}`);
 export const listEventsService = (params) => api.get("/events", { params });
 
+// Book ticket
+export const bookTicketService = (payload) => api.post("/tickets/book", payload);
 
+// Get logged-in user tickets
+export const myTicketsService = () => api.get("/tickets/my");
+
+// Get single ticket details
+export const getTicketService = (id) => api.get(`/tickets/${id}`);
+
+// Admin: Check-in ticket
+export const checkInService = (ticketId) =>
+  api.post("/tickets/check-in", { ticketId });
 export default api;

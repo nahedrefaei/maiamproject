@@ -13,7 +13,7 @@ import { AuthProvider } from "./components/Auth/AuthContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import LoginPage from "./components/Auth/LoginPage";
 import RegisterPage from "./components/Auth/RegisterPage";
-
+import MyTickets from "./components/booking/mytickets";
 function App() {
   return (
     <div>
@@ -40,7 +40,8 @@ function App() {
               <Route path="analytics" element={<Report />} />
               <Route path="tickets" element={<Booking />} />
               <Route path="create-event" element={<CreateEvent />} />
-              {/* add more routes here */}
+              <Route path="mytickets" element={<MyTickets />} />
+                {/* add more routes here */}
             </Route>
     
           </Routes>
