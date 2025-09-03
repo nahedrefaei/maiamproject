@@ -17,6 +17,7 @@ import CustomerEngagementCard from "./piechart";
 import SeatHeatmap from "./heatmap";
 import { useAuth } from "../Auth/AuthContext";
 
+
 export default function Dashboard() {
     const { user } = useAuth();
     

@@ -35,9 +35,11 @@ export const myTicketsService = () => api.get("/tickets/my");
 // Get single ticket details
 export const getTicketService = (id) => api.get(`/tickets/${id}`);
 
+export const getAllTicketsService = () => api.get("/tickets");
 // Admin: Check-in ticket
-export const checkInService = (ticketId) =>
-  api.post("/tickets/check-in", { ticketId });
+export const checkInService = (payload) =>
+  api.post("/tickets/check-in", payload);
+
 // Get the main dashboard summary (revenue, tickets sold, etc.)
 export const getSummaryService = () => api.get("/analytics/summary");
 

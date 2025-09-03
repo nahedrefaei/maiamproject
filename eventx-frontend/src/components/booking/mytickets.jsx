@@ -1,6 +1,7 @@
 import ResponsiveDrawer from "../DashboardScreen/maindashboard";
 import { myTicketsService } from "../services/authService";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 // Import the QR Code component
 const generateQRCodeSVG = (text) => {
     const url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(text)}`;
@@ -53,7 +54,12 @@ export default function MyTickets() {
         {/* Column 2: QR Code */}
         <div className="flex-shrink-0 mt-4 sm:mt-0">
             <p className="text-xs text-blue-500 mt-3"><small>Scan QR Code to check-in:</small></p>
-            <img src={generateQRCodeSVG(ticket._id)} alt="QR Code" className="w-32 h-32" />
+            <img 
+  src={generateQRCodeSVG(`${window.location.origin}/ticket/${ticket._id}`)} 
+  alt="QR Code" 
+  className="w-32 h-32" 
+/>
+
         </div>
     </div>
     );

@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Ticket, ShoppingCart, Banknote, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import image1 from "../../assets/events/image 7.svg"
+import image2 from "../../assets/events/image 8.svg"
+import image3 from "../../assets/events/image 9.svg"
+import image4 from "../../assets/events/image 10.svg"
+const images = [image1, image2, image3, image4];
 
 const EventCard = ({ event, onDelete, onUpdate }) => {
   const [open, setOpen] = useState(false);
@@ -30,14 +35,14 @@ const EventCard = ({ event, onDelete, onUpdate }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
-
+const randomImage = images[Math.floor(Math.random() * images.length)];
   return (
     <div className="max-w-sm rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] mt-[20px] p-4 bg-white hover:bg-[#f8f8f8]">
       {/* Header */}
       <div className="flex justify-between items-start">
         <div className="flex items-center gap-2">
           <img
-            src="/event-icon.png" // you can replace with dynamic icon if available
+            src={randomImage} // you can replace with dynamic icon if available
             alt=""
             className="w-6 h-6"
           />

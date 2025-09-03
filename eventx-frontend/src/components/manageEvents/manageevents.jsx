@@ -32,7 +32,7 @@ export default function ManageEvents() {
 
       // Categorize by status
       setUpcomingEvents(items.filter((e) => e.status === "published"));
-      setPendingEvents(items.filter((e) => e.status === "pending"));
+      setPendingEvents(items.filter((e) => e.status === "draft"));
       setClosedEvents(items.filter((e) => e.status === "closed"));
     } catch (err) {
       setError("Failed to fetch events");

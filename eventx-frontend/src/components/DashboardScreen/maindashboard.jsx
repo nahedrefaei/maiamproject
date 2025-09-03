@@ -49,7 +49,7 @@ const menuItems = [
   { text: 'Analytics&Reports', icon: analyticsReports, path: '/analytics' },
 ];
   const menuItems2 = [
-    { text: 'Contact Support', icon: contactSupport },
+    { text: 'Contact Support', icon: contactSupport,path: '/contact-support' },
     { text: 'Notifications', icon: notifications },
     { text: 'Settings', icon: settings },
 
@@ -134,7 +134,7 @@ function ResponsiveDrawer(props) {
 <List>
   {menuItems2.map((item) => (
     <ListItem key={item.text} disablePadding>
-      <ListItemButton>
+      <ListItemButton onClick={() => navigate(item.path)}>
         <ListItemIcon>
           <img 
             src={item.icon} 

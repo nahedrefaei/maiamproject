@@ -15,7 +15,8 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import LoginPage from "./components/Auth/LoginPage";
 import RegisterPage from "./components/Auth/RegisterPage";
 import MyTickets from "./components/booking/mytickets";
-
+import AdminTicketsPage from "./components/booking/Adminbooking";
+import SingleTicketPage from "./components/booking/SingleTicketPage";
 function App() {
   return (
     <div>
@@ -40,11 +41,12 @@ function App() {
               <Route path="event-info/:eventId" element={<EventInfo />} />
               <Route path="insights" element={<AllAttendees />} />
               <Route path="per-event/:eventId" element={<PerEvent />} />
-              <Route path="tickets" element={<Booking />} />
+              <Route path="tickets" element={<Booking />} /> 
+              <Route path="contact-support" element={<AdminTicketsPage />} />
               <Route path="create-event" element={<CreateEvent />} />
               <Route path="mytickets" element={<MyTickets />} />
               <Route path="analytics" element={<Report />} />
-              
+              <Route path="/ticket/:id" element={<SingleTicketPage />} />
                 {/* add more routes here */}
             </Route>
     
