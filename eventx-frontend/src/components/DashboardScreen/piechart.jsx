@@ -1,6 +1,4 @@
 // CustomerEngagementCard.jsx
-// React component for Customer Engagement with donut chart.
-// Requirements: npm i recharts
 import React, { useMemo } from "react";
 import {
   ResponsiveContainer,
@@ -12,42 +10,60 @@ import {
   Label,
 } from "recharts";
 
-// --- Raw engagement data (sample) ---
-const RAW_EVENTS = [
-  { name: "Event- A", value: 450, color: "#7A5AF8" }, // purple
-  { name: "Event- B", value: 250, color: "#2563EB" }, // blue
-  { name: "Event- C", value: 170, color: "#F59E0B" }, // amber
-  { name: "Event- D", value: 370, color: "#34D399" }, // green
-  { name: "Event- E", value: 290, color: "#F43F5E" }, // red
-];
+const COLORS = ["#7A5AF8", "#2563EB", "#F59E0B", "#34D399", "#F43F5E"];
+const fmtNumber = (n) => (n || 0).toLocaleString();
 
-// Utility: format 15600 -> "15,600"
-const fmtNumber = (n) => n.toLocaleString();
-
-export default function CustomerEngagementCard() {
-  // Compute total & with percentage
+// The component now only accepts the 'events' prop
+export default function CustomerEngagementCard({ events }) {
+  
   const { total, data } = useMemo(() => {
-    const totalValue = RAW_EVENTS.reduce((s, e) => s + e.value, 0);
-    const withPct = RAW_EVENTS.map((e) => ({
-      ...e,
-      pct: Math.round((e.value / totalValue) * 1000) / 10, // 1 decimal %
-    }));
-    return { total: totalValue, data: withPct };
-  }, []);
+    if (!events || events.length === 0) {
+      return { total: 0, data: [] };
+    }
+
+    // 1. Map over events to calculate the number of booked seats for each one
+    const salesByEvent = events.map(event => ({
+        name: event.title,
+        // Count booked seats directly from the event's seats array
+        value: event.seats?.filter(seat => seat.isBooked).length || 0,
+      }));
+
+    // 2. Calculate the grand total of all tickets sold across all events
+    const totalValue = salesByEvent.reduce((sum, event) => sum + event.value, 0);
+
+    // 3. Filter, sort, and format the data for the chart
+    const chartData = salesByEvent
+      .filter(event => event.value > 0)
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5)
+      .map((event, index) => ({
+        ...event,
+        pct: totalValue > 0 ? Math.round((event.value / totalValue) * 100) : 0,
+        color: COLORS[index % COLORS.length],
+      }));
+      
+    return { total: totalValue, data: chartData };
+  }, [events]);
+
+  if (data.length === 0) {
+      return (
+          <div className="w-full max-w-md rounded-2xl p-6 h-[412px] flex flex-col items-center justify-center bg-white shadow-lg">
+              <h2 className="text-2xl font-extrabold text-center mb-6">Top Events by Sales</h2>
+              <p className="text-gray-500">No ticket sales data available.</p>
+          </div>
+      );
+  }
 
   return (
     <div
       className="w-full max-w-md rounded-2xl p-6"
       style={{ background: "#fff", boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }}
     >
-      {/* Header */}
       <h2 className="text-2xl font-extrabold text-center mb-6">
-        Customer Engagement
+        Top Events by Sales
       </h2>
-
-      {/* Chart */}
-      <div className="h-92">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="h-92 w-90">
+        <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
               data={data}
@@ -60,22 +76,15 @@ export default function CustomerEngagementCard() {
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
-
-              {/* Center Label */}
               <Label
                 value={`Total: ${fmtNumber(total)}`}
                 position="center"
-                style={{
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  fill: "#111",
-                }}
+                style={{ fontSize: "16px", fontWeight: "bold", fill: "#111" }}
               />
             </Pie>
-
             <Tooltip
               formatter={(val, name, props) => [
-                fmtNumber(val),
+                `${fmtNumber(val)} tickets`,
                 `${props.payload.name} (${props.payload.pct}%)`,
               ]}
             />

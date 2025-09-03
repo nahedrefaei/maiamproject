@@ -46,5 +46,6 @@ export const getDemographicsService = () => api.get("/analytics/demographics");
 
 // Get analytics for a single, specific event
 export const getPerEventAnalyticsService = (eventId) => api.get(`/analytics/events/${eventId}`);
+export const getSalesTrendService = () => api.get("/analytics/sales-trend");
 
 export default api;
