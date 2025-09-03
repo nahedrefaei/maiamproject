@@ -181,9 +181,11 @@ export default function EventInfo() {
                     <button type="submit" disabled={isSubmitting} className="w-[170px] h-[50px] bg-[#CF730A] rounded-[10px] text-white font-bold disabled:bg-gray-400">
                       {isSubmitting ? 'Saving...' : 'Save Changes'}
                     </button>
-                    <button type="button" className="w-[180px] h-[50px] bg-[#1A6291] rounded-[10px] text-white font-bold">
+                <Link to={`/per-event/${eventId}`}>
+                <button type="button" className="w-[180px] h-[50px] bg-[#1A6291] rounded-[10px] text-white font-bold">
                         Attendee Insight
                     </button>
+                </Link>
                 </div>
               </div>
             </div>
