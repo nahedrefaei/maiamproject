@@ -1,23 +1,46 @@
 import React, { useState } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./AuthContext"; // Assuming your register function is in AuthContext
 import { useNavigate, Link } from "react-router-dom";
 
 const RegisterPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  // Use a single state object to manage all form fields
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user", // Default role to 'user'
+    birthDate: "",
+    gender: "",
+    location: "",
+    interests: "", // Will be a comma-separated string from the input
+  });
   const [error, setError] = useState("");
-  const { register } = useAuth();
+  
+  // Assuming 'register' is a function from your AuthContext that calls the registerService
+  const { register } = useAuth(); 
   const navigate = useNavigate();
+
+  // A single handler for all input changes
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await register({ name, email, password ,role});
+      // Prepare the payload, converting interests string to an array
+      const payload = {
+        ...formData,
+        interests: formData.interests.split(',').map(interest => interest.trim()).filter(Boolean),
+      };
+      
+      const user = await register(payload); // Pass the complete payload
       navigate(user.role === "admin" ? "/dashboard" : "/tickets");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      setError(err.response?.data?.message || "Registration failed. Please try again.");
     }
   };
 
@@ -29,34 +52,75 @@ const RegisterPage = () => {
 
         <input
           type="text"
+          name="name"
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={handleChange}
           className="w-full border p-2 mb-3"
+          required
         />
-
         <input
           type="email"
+          name="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           className="w-full border p-2 mb-3"
+          required
         />
-
         <input
           type="password"
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           className="w-full border p-2 mb-3"
+          required
         />
 
+        {/* --- New Demographic Fields --- */}
+        <input
+          type="date"
+          name="birthDate"
+          value={formData.birthDate}
+          onChange={handleChange}
+          className="w-full border p-2 mb-3"
+        />
         <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
           className="w-full border p-2 mb-3"
         >
-          <option value="">Select Role</option>
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+          value={formData.location}
+          onChange={handleChange}
+          className="w-full border p-2 mb-3"
+        />
+        <input
+          type="text"
+          name="interests"
+          placeholder="Interests (comma-separated, e.g., Music, Tech)"
+          value={formData.interests}
+          onChange={handleChange}
+          className="w-full border p-2 mb-3"
+        />
+        {/* End of new fields */}
+
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full border p-2 mb-3"
+        >
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>

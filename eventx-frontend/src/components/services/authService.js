@@ -38,4 +38,13 @@ export const getTicketService = (id) => api.get(`/tickets/${id}`);
 // Admin: Check-in ticket
 export const checkInService = (ticketId) =>
   api.post("/tickets/check-in", { ticketId });
+// Get the main dashboard summary (revenue, tickets sold, etc.)
+export const getSummaryService = () => api.get("/analytics/summary");
+
+// Get attendee demographic data (age, gender, location)
+export const getDemographicsService = () => api.get("/analytics/demographics");
+
+// Get analytics for a single, specific event
+export const getPerEventAnalyticsService = (eventId) => api.get(`/analytics/events/${eventId}`);
+
 export default api;
