@@ -18,41 +18,30 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
 import logo from "../../assets/sidebarIcons/Group 1.svg"
 import studio from "../../assets/sidebarIcons/studio.png"
-import addEvent from "../../assets/sidebarIcons/add.svg"
-import dashboard from "../../assets/sidebarIcons/Control Panel.svg"
-import manageEvents from "../../assets/sidebarIcons/Event Accepted.svg"
+
 import bookingTickets from "../../assets/sidebarIcons/New Ticket.svg"
-import attendeeInsights from "../../assets/sidebarIcons/Collaborating In Circle.svg"
-import analyticsReports from "../../assets/sidebarIcons/Statistics.svg"
-import contactSupport from "../../assets/sidebarIcons/Customer Support.svg"
-import notifications from "../../assets/sidebarIcons/Add Reminder.svg"
-import settings from "../../assets/sidebarIcons/Settings.svg"
-import marketing from "../../assets/sidebarIcons/Speaker.svg"
-import eventCategories from "../../assets/sidebarIcons/Opened Folder.svg"
+
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+
 import logoutico from "../../assets/sidebarIcons/Logout.svg"
-import manageUsers from "../../assets/sidebarIcons/Add User Male.svg"
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 
 import { useAuth } from "../Auth/AuthContext";
 const drawerWidth = 300;
 
 const menuItems = [
-  { text: 'Dashboard', icon: dashboard, path: '/dashboard' },
-  { text: 'Manage Events', icon: manageEvents, path: '/manage-events' },
-  { text: 'Booking & Tickets', icon: bookingTickets, path: '/contact-support' },
-  { text: 'Attendee Insights', icon: attendeeInsights, path: '/insights' },
-  { text: 'Analytics&Reports', icon: analyticsReports, path: '/analytics' },
+  
+  { text: 'Booking & Tickets', icon: bookingTickets, path: '/tickets' },
+
 ];
   const menuItems2 = [
-   
-
-    { text: 'Settings', icon: settings ,path:'/setting'},
+    { text: 'Contact Support', icon: <PsychologyAltIcon sx={{ fontSize: '50px', color: '#fff' }} /> },
+    { text: 'profile', icon:  <AccountCircleIcon sx={{ fontSize: '50px', color: '#fff' }} /> },
 
   ];
  
@@ -79,7 +68,7 @@ function ResponsiveDrawer(props) {
     }
   };
   const menuItems4 = [
-    { text: 'Manage Users', icon: manageUsers ,onClick:()=>navigate('/manage-users')},
+  
     { text: 'Logout', icon: logoutico , onClick:logout}
  
   
@@ -89,7 +78,7 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div style={{backgroundColor: '#111111'}}>
       <Toolbar style={{paddingTop: '30px' ,paddingBottom: '30px'}} ><div><img className="w-[50px] h-[50px]" src={logo} alt="logo" /></div><div style={{paddingLeft: '20px'}}><h1>EventX</h1><p><img src={studio} alt="" /></p></div></Toolbar>
-     <Toolbar><div className=" gap-[10px] w-[250px] h-[52px] bg-[#282828] rounded-[1rem] flex items-center justify-center"><div><Link to="/create-event"><button className="w-[42px] h-[42px] bg-[#C1FF72] rounded-[1rem] flex items-center justify-center"><img src={addEvent} alt="" /></button ></Link></div><div><h1>Add Quick Event</h1><h6 className="text-[10px]">Events</h6></div></div></Toolbar><hr className="ml-[20px]"/>
+   
      <Accordion style={{backgroundColor: "transparent",color: "#fff"}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon style={{color: "#fff"}}/>}
@@ -131,11 +120,7 @@ function ResponsiveDrawer(props) {
     <ListItem key={item.text} disablePadding>
       <ListItemButton onClick={() => navigate(item.path)}>
         <ListItemIcon>
-          <img 
-            src={item.icon} 
-            alt={item.text} 
-            style={{ width: 24, height: 24 }} // adjust size
-          />
+         {item.icon}
         </ListItemIcon>
         <ListItemText primary={item.text} />
       </ListItemButton>
@@ -146,7 +131,7 @@ function ResponsiveDrawer(props) {
       <Divider />
         </AccordionDetails>
       </Accordion>
-   
+    
       <Accordion style={{backgroundColor: "transparent",color: "#fff"}}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon style={{color: "#fff"}}/>}

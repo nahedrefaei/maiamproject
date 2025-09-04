@@ -1,4 +1,4 @@
-import ResponsiveDrawer from "../DashboardScreen/maindashboard";
+import UserResponsiveDrawer from "../usercomponents/usersidebar";
 import { myTicketsService } from "../services/authService";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -77,7 +77,7 @@ export default function MyTickets() {
     );
 
     return (
-        <ResponsiveDrawer>
+        <UserResponsiveDrawer>
             <main className="p-6 font-sans bg-gray-50 min-h-screen">
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">My Tickets</h1>
                 
@@ -90,6 +90,6 @@ export default function MyTickets() {
                     )
                 )}
             </main>
-        </ResponsiveDrawer>
+        </UserResponsiveDrawer>
     );
 }

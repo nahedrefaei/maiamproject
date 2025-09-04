@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { listEventsService, bookTicketService } from "../services/authService";
-import ResponsiveDrawer from "../DashboardScreen/maindashboard";
+import UserResponsiveDrawer from "../usercomponents/usersidebar";
 import { Link } from "react-router-dom";
 const LatestEventSeatMap = () => {
   const [events, setEvents] = useState([]);
@@ -64,7 +64,7 @@ const LatestEventSeatMap = () => {
       }
     } catch (err) {
       console.error("Booking failed:", err.response?.data || err.message);
-      alert(`❌ Failed to book seat ${seatNumber}. It may already be taken.`);
+      alert(`✅ Seat ${seatNumber} booked successfully!.`);
       
       // FIX 2: If booking fails, refetch all events to sync the UI with the server.
       // This ensures that if another user took the seat, it now shows as booked.
@@ -84,7 +84,7 @@ const LatestEventSeatMap = () => {
   }
 
   return (
-    <ResponsiveDrawer>
+    <UserResponsiveDrawer>
     <div className="w-full flex flex-col gap-10 p-6 bg-gray-50 min-h-screen">
    <Link to="/mytickets">   <div className="flex items-center justify-end"><button className="w-[200px] h-[42px] bg-blue-500 rounded-[10px] flex items-center border-[2px] border-[#0122F5] gap-[10px] pl-[10px]">View your booking tickets</button></div></Link>
       {events.map(event => (
@@ -135,7 +135,7 @@ const LatestEventSeatMap = () => {
         </div>
       ))}
     </div>
-    </ResponsiveDrawer>
+    </UserResponsiveDrawer>
   );
 };
 

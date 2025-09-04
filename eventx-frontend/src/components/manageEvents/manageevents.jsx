@@ -71,10 +71,121 @@ export default function ManageEvents() {
     <ResponsiveDrawer>
       <div className="h-full bg-[#F2F2F2] rounded-[15px] mr-[20px] ">
         {/* Header Section */}
-        <div className=" bg-[#ffffff]  rounded-[15px] rounded-bl-[0px] rounded-br-[0px] p-[20px]">
-          {/* ...omitted for brevity... */}
-        </div>
+        <div className=" bg-[#ffffff]  rounded-[15px] rounded-bl-[0px] rounded-br-[0px] p-[20px]">
 
+          <div className="flex items-center justify-between mb-[20px]">
+
+            <h1 className="text-[24px] font-extrabold">
+
+              Event Management Section
+
+            </h1>
+
+            <div className="flex items-center gap-[10px]">
+
+              <div className="w-[120px] h-[42px] bg-white rounded-[10px] flex items-center border-[1px] border-[#111111] gap-[10px] pl-[10px]">
+
+                <img src={Filter} alt="" />
+
+                <button>filter</button>
+
+                <ArrowDropDownIcon sx={{ fontSize: "50px" }} />
+
+              </div>
+
+              <div className="w-[291px] h-[42px] bg-white rounded-[10px] flex items-center border-[1px] border-[#111111] gap-[10px] pl-[10px]">
+
+                <button>
+
+                  <img src={Search} alt="" />
+
+                </button>
+
+                <input type="text" placeholder="Search..." />
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          {/* Buttons */}
+
+          <div className="flex items-center justify-between">
+
+            <div className="flex items-center gap-[10px]">
+
+              <div className="w-[200px] h-[42px] bg-white rounded-[10px] flex items-center border-[2px] border-[#0122F5] gap-[10px] pl-[10px]">
+
+                <Link to="/create-event">
+
+                  <button className="w-[24px] h-[24px] rounded-full border-[1px] border-[#0122F5] flex items-center justify-center">
+
+                    <AddIcon color="primary" />
+
+                  </button>
+
+                </Link>
+
+                <h1 className="text-[#0122F5]">New Event </h1>
+
+              </div>
+
+              <div className="w-[200px] h-[42px] bg-white rounded-[10px] flex items-center border-[2px] border-[#FA921B] gap-[10px] pl-[10px]">
+
+                <h1 className="text-[#FA921B]">Attendee Insights</h1>{" "}
+
+                <button>
+
+                  <ArrowDropDownIcon
+
+                    sx={{ fontSize: "50px", color: "#FA921B" }}
+
+                  />
+
+                </button>
+
+              </div>
+
+            </div>
+
+            <div className="flex items-center gap-[10px]">
+
+              <div className="w-[220px] h-[42px] bg-white rounded-[10px] flex items-center border-[1px] border-[#111111] gap-[10px] pl-[10px]">
+
+                <h1>Sort By: &nbsp; &nbsp; &nbsp; Status</h1>
+
+                <button>
+
+                  <ArrowDropDownIcon
+
+                    sx={{ fontSize: "50px", color: "#111111" }}
+
+                  />
+
+                </button>
+
+              </div>
+
+              <div className="w-[150px] h-[42px] bg-white rounded-[10px] flex items-center border-[1px] border-[#111111] gap-[10px] pl-[10px]">
+
+                <button>
+
+                  <CalendarMonthIcon sx={{ fontSize: "25px", color: "#111111" }} />
+
+                </button>
+
+                <h1 className="pl-[10px]">Pick Date</h1>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
         {/* Events Grid */}
         <div className="grid grid-cols-3 gap-[20px] p-[20px]">
           {/* Upcoming */}

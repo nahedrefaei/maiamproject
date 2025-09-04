@@ -6,6 +6,9 @@ import AttendeeLocationsChart from "../Ateendes/barchartatt";
 import AttendeeInterestsChart from "../Ateendes/interests";
 import ResponsiveDrawer from "../DashboardScreen/maindashboard";
 // --- Reusable Components (usually in separate files, but combined here for simplicity) ---
+import { exportAnalyticsService } from "../services/authService";
+
+
 
 // 1. Reusable card for the top summary stats
 const StatCard = ({ title, value, icon: Icon, color }) => (
@@ -68,6 +71,21 @@ export default function AnalyticsDashboard() {
   const [summary, setSummary] = useState(null);
   const [demographics, setDemographics] = useState(null);
   const [loading, setLoading] = useState(true);
+  const handleExport = async () => {
+    try {
+      const res = await exportAnalyticsService();
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "analytics.csv");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error("Failed to export analytics", err);
+      alert("Failed to export analytics data");
+    }
+  };
   
   useEffect(() => {
     const fetchData = async () => {
@@ -102,7 +120,7 @@ export default function AnalyticsDashboard() {
           <h1 className="text-3xl font-bold text-gray-800">Analytics & Reports</h1>
           <p className="text-gray-500 mt-1">An overview of your event performance and attendee insights.</p>
         </div>
-        <button className="mt-4 md:mt-0 flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-blue-700 transition">
+        <button onClick={handleExport} className="mt-4 md:mt-0 flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm hover:bg-blue-700 transition">
           <Download size={18} />
           <span>Export to CSV</span>
         </button>

@@ -17,9 +17,16 @@ import RegisterPage from "./components/Auth/RegisterPage";
 import MyTickets from "./components/booking/mytickets";
 import AdminTicketsPage from "./components/booking/Adminbooking";
 import SingleTicketPage from "./components/booking/SingleTicketPage";
+import UserResponsiveDrawer from "./components/usercomponents/usersidebar";
+import ManageUsers from "./components/manageUsers/manageusers";
+import Settings from "./components/setting/setting";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 function App() {
+  
   return (
     <div>
+  
       <BrowserRouter>
         <AuthProvider>
           <Routes>
@@ -31,7 +38,7 @@ function App() {
             <Route
               path="/"
               element={
-                <ProtectedRoute >
+                <ProtectedRoute role="admin">
                   <ResponsiveDrawer />
                 </ProtectedRoute>
               }
@@ -41,15 +48,30 @@ function App() {
               <Route path="event-info/:eventId" element={<EventInfo />} />
               <Route path="insights" element={<AllAttendees />} />
               <Route path="per-event/:eventId" element={<PerEvent />} />
-              <Route path="tickets" element={<Booking />} /> 
-              <Route path="contact-support" element={<AdminTicketsPage />} />
+              <Route path="setting" element={<Settings/>} />
+              <Route path="contact-support" element={<AdminTicketsPage/>} />
               <Route path="create-event" element={<CreateEvent />} />
-              <Route path="mytickets" element={<MyTickets />} />
+              <Route path="manage-users" element={<ManageUsers />} />
               <Route path="analytics" element={<Report />} />
-              <Route path="/ticket/:id" element={<SingleTicketPage />} />
+            
                 {/* add more routes here */}
             </Route>
-    
+      
+      <Route
+              path="/"
+              element={
+                  <ProtectedRoute role="user">
+                  <UserResponsiveDrawer />
+                  </ProtectedRoute>
+                }
+            >
+      
+              <Route path="tickets" element={<Booking />} /> 
+              <Route path="mytickets" element={<MyTickets />} />
+              <Route path="analytics" element={<Report />} />
+              <Route path="ticket/:id" element={<SingleTicketPage />} />
+                {/* add more routes here */}
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

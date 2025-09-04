@@ -39,6 +39,9 @@ export const getAllTicketsService = () => api.get("/tickets");
 // Admin: Check-in ticket
 export const checkInService = (payload) =>
   api.post("/tickets/check-in", payload);
+export const exportAnalyticsService = async () => {
+  return api.get("/analytics/export", { responseType: "blob" }); // blob for file download
+};
 
 // Get the main dashboard summary (revenue, tickets sold, etc.)
 export const getSummaryService = () => api.get("/analytics/summary");
